@@ -3,6 +3,7 @@ using InnoClinic.OfficesAPI.Application.DataTransferObjects;
 using InnoClinic.OfficesAPI.Application.Services.Abstractions;
 using InnoCLinic.OfficesAPI.Core.Contracts.Repositories;
 using InnoCLinic.OfficesAPI.Core.Entities.Models;
+using InnoCLinic.OfficesAPI.Core.Exceptions.UserClassExceptions;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.IdGenerators;
 using System;
@@ -27,7 +28,7 @@ namespace InnoClinic.OfficesAPI.Application.Services
         {
             if(office == null)
             {
-                throw new Exception();
+                throw new OfficeNullReferenceException(typeof(OfficeForCreationDTO));
             }
 
             var officeEntity = _mapper.Map<Office>(office);
@@ -39,17 +40,12 @@ namespace InnoClinic.OfficesAPI.Application.Services
 
         public async Task DeleteOfficeAsync(string officeId)
         {
-            if (officeId == null)
-            {
-                throw new Exception();
-            }
-
             var objectId = new ObjectId(officeId);
             var office = await _repositoryManager.Office.GetOfficeAsync(objectId);
 
             if(office == null)
             {
-                throw new Exception();
+                throw new OfficeNotFoundException(objectId);
             }
 
             await _repositoryManager.Office.DeleteOfficeAsync(office);
@@ -70,7 +66,7 @@ namespace InnoClinic.OfficesAPI.Application.Services
 
             if (office == null)
             {
-                throw new Exception();
+                throw new OfficeNotFoundException(objectId);
             }
 
             return _mapper.Map<OfficeDTO>(office);
