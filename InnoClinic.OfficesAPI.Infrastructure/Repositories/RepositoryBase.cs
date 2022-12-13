@@ -2,8 +2,6 @@
 using InnoCLinic.OfficesAPI.Core.Contracts.Attributes;
 using InnoCLinic.OfficesAPI.Core.Contracts.Repositories;
 using InnoCLinic.OfficesAPI.Core.Contracts.Settings;
-using InnoCLinic.OfficesAPI.Core.Entities.Models;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Linq.Expressions;
 
@@ -31,11 +29,7 @@ namespace InnoClinic.OfficesAPI.Infrastructure.Repositories
 
         public async Task Delete(Expression<Func<T, bool>> expression) => await _collection.FindOneAndDeleteAsync(expression);
 
-        public async Task<List<T>> FindByCondition(Expression<Func<T, bool>> expression)
-        {
-            var cursor = await _collection.FindAsync(expression);
-            return cursor.ToList();
-        }
+        public async Task<List<T>> FindByCondition(Expression<Func<T, bool>> expression) => (await _collection.FindAsync(expression)).ToList();
 
         public async Task Update(T entity) => await _collection.ReplaceOneAsync(x => x.Id.Equals(entity.Id), entity);
     }

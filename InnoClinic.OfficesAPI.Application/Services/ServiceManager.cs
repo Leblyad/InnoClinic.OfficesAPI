@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using InnoClinic.OfficesAPI.Application.Services.Abstractions;
 using InnoCLinic.OfficesAPI.Core.Contracts.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InnoClinic.OfficesAPI.Application.Services
 {

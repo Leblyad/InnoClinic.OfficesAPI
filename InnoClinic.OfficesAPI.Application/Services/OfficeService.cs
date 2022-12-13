@@ -5,12 +5,6 @@ using InnoCLinic.OfficesAPI.Core.Contracts.Repositories;
 using InnoCLinic.OfficesAPI.Core.Entities.Models;
 using InnoCLinic.OfficesAPI.Core.Exceptions.UserClassExceptions;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization.IdGenerators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InnoClinic.OfficesAPI.Application.Services
 {
@@ -26,7 +20,7 @@ namespace InnoClinic.OfficesAPI.Application.Services
 
         public async Task<OfficeDTO> CreateOfficeAsync(OfficeForCreationDTO office)
         {
-            if(office == null)
+            if (office == null)
             {
                 throw new OfficeNullReferenceException(typeof(OfficeForCreationDTO));
             }
@@ -35,7 +29,7 @@ namespace InnoClinic.OfficesAPI.Application.Services
 
             await _repositoryManager.Office.CreateOfficeAsync(officeEntity);
 
-            return _mapper.Map<OfficeDTO>(officeEntity); 
+            return _mapper.Map<OfficeDTO>(officeEntity);
         }
 
         public async Task DeleteOfficeAsync(string officeId)
@@ -43,7 +37,7 @@ namespace InnoClinic.OfficesAPI.Application.Services
             var objectId = new ObjectId(officeId);
             var office = await _repositoryManager.Office.GetOfficeAsync(objectId);
 
-            if(office == null)
+            if (office == null)
             {
                 throw new OfficeNotFoundException(objectId);
             }
@@ -57,7 +51,6 @@ namespace InnoClinic.OfficesAPI.Application.Services
 
             return _mapper.Map<List<OfficeDTO>>(list);
         }
-
 
         public async Task<OfficeDTO> GetOfficeAsync(string officeId)
         {
@@ -77,7 +70,7 @@ namespace InnoClinic.OfficesAPI.Application.Services
             var officeEntity = _mapper.Map<Office>(office);
             officeEntity.Id = new ObjectId(serviceId);
 
-            await _repositoryManager.Office.UpdateServiceAsync(officeEntity);
+            await _repositoryManager.Office.UpdateOfficeAsync(officeEntity);
         }
     }
 }

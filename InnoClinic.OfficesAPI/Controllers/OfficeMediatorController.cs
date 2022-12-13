@@ -1,43 +1,42 @@
 ﻿using InnoClinic.OfficesAPI.Application.DataTransferObjects;
-using InnoClinic.OfficesAPI.Application.Services.Abstractions;
-using InnoCLinic.OfficesAPI.Core.Entities.Enums;
-using Microsoft.AspNetCore.Authorization;
+using InnoClinic.OfficesAPI.Application.MediatorObjects.Commands;
+using InnoClinic.OfficesAPI.Application.MediatorObjects.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InnoClinic.OfficesAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = nameof(UserRole.Receptionist))]
-    public class OfficeController : ControllerBase
+    public class OfficeMediatorController : ControllerBase
     {
-        private readonly IServiceManager _serviceManager;
+        private readonly IMediator _mediator;
 
-        public OfficeController(IServiceManager serviceManager)
+        public OfficeMediatorController(IMediator mediator)
         {
-            _serviceManager = serviceManager;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllOffices()
         {
-            var offices = await _serviceManager.OfficeService.GetAllOfficeAsync();
+            var officesList = await _mediator.Send(new GetAllOfficesQuery());
 
-            return Ok(offices);
+            return Ok(officesList);
         }
 
         [HttpGet("{officeId}")]
         public async Task<IActionResult> GetOfficeById(string officeId)
         {
-            var office = await _serviceManager.OfficeService.GetOfficeAsync(officeId);
+            var officeDto = await _mediator.Send(new GetOfficeQuery(officeId));
 
-            return Ok(office);
+            return Ok(officeDto);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateOffice([FromBody] OfficeForCreationDTO office)
         {
-            var officeDto = await _serviceManager.OfficeService.CreateOfficeAsync(office);
+            var officeDto = await _mediator.Send(new OfficeForCreationCommand(office));
 
             return CreatedAtAction(nameof(GetOfficeById), new { officeId = officeDto.Id }, officeDto);
         }
@@ -45,7 +44,7 @@ namespace InnoClinic.OfficesAPI.Controllers
         [HttpPut("{officeId}")]
         public async Task<IActionResult> UpdateOffice(string officeId, [FromBody] OfficeForUpdateDTO office)
         {
-            await _serviceManager.OfficeService.UpdateOfficeAsync(officeId, office);
+            await _mediator.Send(new OfficeForUpdateCommand(office, officeId));
 
             return NoContent();
         }
@@ -53,7 +52,7 @@ namespace InnoClinic.OfficesAPI.Controllers
         [HttpDelete("{officeId}")]
         public async Task<IActionResult> DeleteOffice(string officeId)
         {
-            await _serviceManager.OfficeService.DeleteOfficeAsync(officeId);
+            await _mediator.Send(new OfficeForDeleteCommand(officeId));
 
             return NoContent();
         }
