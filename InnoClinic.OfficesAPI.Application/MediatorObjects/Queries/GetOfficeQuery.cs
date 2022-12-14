@@ -3,5 +3,5 @@ using MediatR;
 
 namespace InnoClinic.OfficesAPI.Application.MediatorObjects.Queries
 {
-    public record GetOfficeQuery(string officeId) : IRequest<OfficeDTO>;
+    public record GetOfficeQuery(string OfficeId) : IRequest<OfficeDTO>;
 }

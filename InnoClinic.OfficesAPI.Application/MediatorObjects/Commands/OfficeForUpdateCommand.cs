@@ -3,5 +3,18 @@ using MediatR;
 
 namespace InnoClinic.OfficesAPI.Application.MediatorObjects.Commands
 {
-    public record OfficeForUpdateCommand(OfficeForUpdateDTO office, string officeId) : IRequest;
+    public class OfficeForUpdateCommand : OfficeForManipulation, IRequest
+    {
+        private string Id;
+
+        public string GetId()
+        {
+            return Id;
+        }
+
+        public void SetId(string id)
+        {
+            Id = id;
+        }
+    }
 }

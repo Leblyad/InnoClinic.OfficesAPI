@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using InnoClinic.OfficesAPI.Application.DataTransferObjects;
-using InnoClinic.OfficesAPI.Application.MediatorObjects.Queries;
 using InnoCLinic.OfficesAPI.Core.Contracts.Repositories;
 using MediatR;
 
-namespace InnoClinic.OfficesAPI.Application.MediatorObjects.Handlers
+namespace InnoClinic.OfficesAPI.Application.MediatorObjects.Queries
 {
     public record GetAllOfficesHandler : IRequestHandler<GetAllOfficesQuery, List<OfficeDTO>>
     {

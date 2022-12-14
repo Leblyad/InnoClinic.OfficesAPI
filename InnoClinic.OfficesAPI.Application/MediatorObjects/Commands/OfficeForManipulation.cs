@@ -1,13 +1,13 @@
-﻿using InnoCLinic.OfficesAPI.Core.Contracts.Attributes;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace InnoCLinic.OfficesAPI.Core.Entities.Models
+namespace InnoClinic.OfficesAPI.Application.MediatorObjects.Commands
 {
-    [Collection("Office")]
-    [BsonIgnoreExtraElements]
-    public class Office : Document
+    public class OfficeForManipulation
     {
         [Required]
         public string City { get; set; }

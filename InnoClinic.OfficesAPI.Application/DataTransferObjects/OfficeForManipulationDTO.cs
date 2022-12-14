@@ -1,11 +1,20 @@
-﻿namespace InnoClinic.OfficesAPI.Application.DataTransferObjects
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace InnoClinic.OfficesAPI.Application.DataTransferObjects
 {
     public abstract class OfficeForManipulationDTO
     {
-        public string Address { get; set; }
-        public string PhotoId { get; set; }
-        public string Url { get; set; }
+        [Required]
+        public string City { get; set; }
+        [Required]
+        public string Street { get; set; }
+        [Required]
+        public string HouseNumber { get; set; }
+        public string OfficeNumber { get; set; }
+        public Guid PhotoId { get; set; }
+        [Required]
         public string RegistryPhoneNumber { get; set; }
-        public string IsActive { get; set; }
+        [Required]
+        public bool Status { get; set; }
     }
 }

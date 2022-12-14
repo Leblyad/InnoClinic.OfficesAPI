@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using InnoClinic.OfficesAPI.Application.DataTransferObjects;
-using InnoClinic.OfficesAPI.Application.MediatorObjects.Commands;
 using InnoCLinic.OfficesAPI.Core.Contracts.Repositories;
 using InnoCLinic.OfficesAPI.Core.Entities.Models;
 using InnoCLinic.OfficesAPI.Core.Exceptions.UserClassExceptions;
 using MediatR;
 
-namespace InnoClinic.OfficesAPI.Application.MediatorObjects.Handlers
+namespace InnoClinic.OfficesAPI.Application.MediatorObjects.Commands
 {
     public class CreateOfficeHandler : IRequestHandler<OfficeForCreationCommand, OfficeDTO>
     {
@@ -26,7 +25,7 @@ namespace InnoClinic.OfficesAPI.Application.MediatorObjects.Handlers
                 throw new OfficeNullReferenceException(typeof(OfficeForCreationDTO));
             }
 
-            var officeEntity = _mapper.Map<Office>(request.office);
+            var officeEntity = _mapper.Map<Office>(request);
 
             await _repositoryManager.Office.CreateOfficeAsync(officeEntity);
 

@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using InnoClinic.OfficesAPI.Application.MediatorObjects.Commands;
 using InnoCLinic.OfficesAPI.Core.Contracts.Repositories;
 using InnoCLinic.OfficesAPI.Core.Entities.Models;
 using MediatR;
 using MongoDB.Bson;
 
-namespace InnoClinic.OfficesAPI.Application.MediatorObjects.Handlers
+namespace InnoClinic.OfficesAPI.Application.MediatorObjects.Commands
 {
     public class UpdateOfficeHandler : IRequestHandler<OfficeForUpdateCommand>
     {
@@ -20,8 +19,8 @@ namespace InnoClinic.OfficesAPI.Application.MediatorObjects.Handlers
 
         public async Task<Unit> Handle(OfficeForUpdateCommand request, CancellationToken cancellationToken)
         {
-            var officeEntity = _mapper.Map<Office>(request.office);
-            officeEntity.Id = new ObjectId(request.officeId);
+            var officeEntity = _mapper.Map<Office>(request);
+            officeEntity.Id = new ObjectId(request.GetId());
 
             await _repositoryManager.Office.UpdateOfficeAsync(officeEntity);
 

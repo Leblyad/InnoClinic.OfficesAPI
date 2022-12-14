@@ -12,6 +12,7 @@ namespace InnoClinic.OfficesAPI.Application.Services
     {
         private readonly IRepositoryManager _repositoryManager;
         private readonly IMapper _mapper;
+
         public OfficeService(IRepositoryManager repositoryManager, IMapper mapper)
         {
             _repositoryManager = repositoryManager;

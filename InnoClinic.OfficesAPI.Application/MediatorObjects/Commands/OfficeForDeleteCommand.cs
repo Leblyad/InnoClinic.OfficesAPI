@@ -2,5 +2,5 @@
 
 namespace InnoClinic.OfficesAPI.Application.MediatorObjects.Commands
 {
-    public record OfficeForDeleteCommand(string officeId) : IRequest;
+    public record OfficeForDeleteCommand(string OfficeId) : IRequest;
 }

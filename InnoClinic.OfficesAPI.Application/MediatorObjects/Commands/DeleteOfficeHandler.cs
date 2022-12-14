@@ -1,10 +1,9 @@
-﻿using InnoClinic.OfficesAPI.Application.MediatorObjects.Commands;
-using InnoCLinic.OfficesAPI.Core.Contracts.Repositories;
+﻿using InnoCLinic.OfficesAPI.Core.Contracts.Repositories;
 using InnoCLinic.OfficesAPI.Core.Exceptions.UserClassExceptions;
 using MediatR;
 using MongoDB.Bson;
 
-namespace InnoClinic.OfficesAPI.Application.MediatorObjects.Handlers
+namespace InnoClinic.OfficesAPI.Application.MediatorObjects.Commands
 {
     public class DeleteOfficeHandler : IRequestHandler<OfficeForDeleteCommand, Unit>
     {
@@ -17,7 +16,7 @@ namespace InnoClinic.OfficesAPI.Application.MediatorObjects.Handlers
 
         public async Task<Unit> Handle(OfficeForDeleteCommand request, CancellationToken cancellationToken)
         {
-            var objectId = new ObjectId(request.officeId);
+            var objectId = new ObjectId(request.OfficeId);
             var office = await _repositoryManager.Office.GetOfficeAsync(objectId);
 
             if (office == null)

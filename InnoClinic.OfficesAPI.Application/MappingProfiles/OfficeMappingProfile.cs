@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InnoClinic.OfficesAPI.Application.DataTransferObjects;
+using InnoClinic.OfficesAPI.Application.MediatorObjects.Commands;
 using InnoCLinic.OfficesAPI.Core.Entities.Models;
 
 namespace InnoClinic.OfficesAPI.Application.MappingProfiles
@@ -14,6 +15,10 @@ namespace InnoClinic.OfficesAPI.Application.MappingProfiles
                 .ForMember(x => x.Id, opt => opt.MapFrom(src => src.Id.ToString()));
 
             CreateMap<OfficeForUpdateDTO, Office>();
+
+            CreateMap<OfficeForCreationCommand, Office>();
+
+            CreateMap<OfficeForUpdateCommand, Office>();
         }
     }
 }

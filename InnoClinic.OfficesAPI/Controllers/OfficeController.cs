@@ -8,7 +8,7 @@ namespace InnoClinic.OfficesAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = nameof(UserRole.Receptionist))]
+    //[Authorize(Roles = nameof(UserRole.Receptionist))]
     public class OfficeController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;

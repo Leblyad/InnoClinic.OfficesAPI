@@ -34,17 +34,18 @@ namespace InnoClinic.OfficesAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOffice([FromBody] OfficeForCreationDTO office)
+        public async Task<IActionResult> CreateOffice([FromBody] OfficeForCreationCommand office)
         {
-            var officeDto = await _mediator.Send(new OfficeForCreationCommand(office));
+            var officeDto = await _mediator.Send(office);
 
             return CreatedAtAction(nameof(GetOfficeById), new { officeId = officeDto.Id }, officeDto);
         }
 
         [HttpPut("{officeId}")]
-        public async Task<IActionResult> UpdateOffice(string officeId, [FromBody] OfficeForUpdateDTO office)
+        public async Task<IActionResult> UpdateOffice(string officeId, [FromBody] OfficeForUpdateCommand office)
         {
-            await _mediator.Send(new OfficeForUpdateCommand(office, officeId));
+            office.SetId(officeId);
+            await _mediator.Send(office);
 
             return NoContent();
         }
