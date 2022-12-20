@@ -1,13 +1,8 @@
-﻿using InnoCLinic.OfficesAPI.Core.Contracts.Attributes;
-using MongoDB.Bson.Serialization.Attributes;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace InnoCLinic.OfficesAPI.Core.Entities.Models
+namespace InnoClinic.OfficesAPI.Application.DataTransferObjects
 {
-    [Collection("Office")]
-    [BsonIgnoreExtraElements]
-    public class Office : Document
+    public class OfficeForCreationDTO 
     {
         [Required]
         public string City { get; set; }
