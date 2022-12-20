@@ -1,13 +1,17 @@
 ﻿using InnoClinic.OfficesAPI.Application.DataTransferObjects;
 using InnoClinic.OfficesAPI.Application.MediatorObjects.Commands;
 using InnoClinic.OfficesAPI.Application.MediatorObjects.Queries;
+using InnoCLinic.OfficesAPI.Core.Entities.Enums;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace InnoClinic.OfficesAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = nameof(UserRole.Receptionist))]
     public class OfficeMediatorController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -34,7 +38,7 @@ namespace InnoClinic.OfficesAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOffice([FromBody] OfficeForCreationCommand office)
+        public async Task<IActionResult> CreateOffice([FromBody] CreateOfficeCommand office)
         {
             var officeDto = await _mediator.Send(office);
 
@@ -42,9 +46,9 @@ namespace InnoClinic.OfficesAPI.Controllers
         }
 
         [HttpPut("{officeId}")]
-        public async Task<IActionResult> UpdateOffice(string officeId, [FromBody] OfficeForUpdateCommand office)
+        public async Task<IActionResult> UpdateOffice(string officeId, [FromBody] UpdateOfficeCommand office)
         {
-            office.SetId(officeId);
+            office.Id = officeId;
             await _mediator.Send(office);
 
             return NoContent();
@@ -53,7 +57,7 @@ namespace InnoClinic.OfficesAPI.Controllers
         [HttpDelete("{officeId}")]
         public async Task<IActionResult> DeleteOffice(string officeId)
         {
-            await _mediator.Send(new OfficeForDeleteCommand(officeId));
+            await _mediator.Send(new DeleteOfficeCommand(officeId));
 
             return NoContent();
         }

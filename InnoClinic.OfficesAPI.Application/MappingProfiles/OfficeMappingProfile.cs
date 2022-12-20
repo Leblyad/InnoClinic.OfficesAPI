@@ -16,9 +16,9 @@ namespace InnoClinic.OfficesAPI.Application.MappingProfiles
 
             CreateMap<OfficeForUpdateDTO, Office>();
 
-            CreateMap<OfficeForCreationCommand, Office>();
+            CreateMap<CreateOfficeCommand, Office>();
 
-            CreateMap<OfficeForUpdateCommand, Office>();
+            CreateMap<UpdateOfficeCommand, Office>();
         }
     }
 }
